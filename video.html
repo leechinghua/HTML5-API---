@@ -9,6 +9,7 @@
         margin: 0;
       }
       main {
+        display: flex;
         border: 1px solid #000;
       }
 
@@ -35,8 +36,6 @@
           <video width="70%" muted loop autoplay controls poster="">
             <source src="" />
           </video>
-          <!-- </section>
-        <section class="controls"> -->
           <ul>
             <li>
               <svg class="icon"><use href="#icon1" /></svg>
@@ -53,7 +52,15 @@
             </li>
           </ul>
         </section>
-        <aside></aside>
+        <aside>
+          <div class="btns">
+            <button id="video1">影片1</button>
+            <button id="video2">影片2</button>
+            <button id="video3">影片3</button>
+            <button id="video4">影片4</button>
+            <button id="plus">+</button>
+          </div>
+        </aside>
       </main>
     </div>
     <svg style="display: none">
