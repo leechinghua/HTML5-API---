@@ -13,18 +13,24 @@
         border: 1px solid #000;
       }
 
-      ul {
+      .controls {
         display: inline-flex;
         align-items: center;
         width: 70%;
-        & li {
-          list-style: none;
-          height: 20px;
-          & svg {
-            width: 100%;
-            height: 100%;
-          }
-        }
+      }
+
+      .icon {
+        border: 1px solid #000;
+        height: 20px;
+      }
+
+      .icon svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      .icon:hover {
+        opacity: 0.5;
       }
     </style>
     <title>Document</title>
@@ -36,21 +42,24 @@
           <video width="70%" id="player" muted loop autoplay poster="">
             <!-- <source src="" /> -->
           </video>
-          <ul class="controls">
-            <li>
-              <svg class="icon" id="last"><use href="#icon1" /></svg>
-            </li>
-            <li>
-              <svg class="icon" id="play"><use href="#" /></svg>
-            </li>
-            <li>
-              <svg class="icon" id="next"><use href="#icon3" /></svg>
-            </li>
-            <li><input type="range" /></li>
-            <li>
-              <svg class="icon" id="voice"><use href="#icon4" /></svg>
-            </li>
-          </ul>
+          <div class="controls">
+            <div class="icon">
+              <svg id="last"><use href="#icon1" /></svg>
+            </div>
+            <div class="icon" id="play">
+              <svg><use href="#icon2" /></svg>
+            </div>
+            <div class="icon" id="pause">
+              <svg><use href="#icon5" /></svg>
+            </div>
+            <div class="icon" id="next">
+              <svg><use href="#icon3" /></svg>
+            </div>
+            <div><input type="range" /></div>
+            <div class="icon" id="voice">
+              <svg><use href="#icon4" /></svg>
+            </div>
+          </div>
         </section>
         <aside>
           <div class="btns">
@@ -97,10 +106,26 @@
             d="M301.1 34.8C312.6 40 320 51.4 320 64V448c0 12.6-7.4 24-18.9 29.2s-25 3.1-34.4-5.3L131.8 352H64c-35.3 0-64-28.7-64-64V224c0-35.3 28.7-64 64-64h67.8L266.7 40.1c9.4-8.4 22.9-10.4 34.4-5.3zM412.6 181.5C434.1 199.1 448 225.9 448 256s-13.9 56.9-35.4 74.5c-10.3 8.4-25.4 6.8-33.8-3.5s-6.8-25.4 3.5-33.8C393.1 284.4 400 271 400 256s-6.9-28.4-17.7-37.3c-10.3-8.4-11.8-23.5-3.5-33.8s23.5-11.8 33.8-3.5z"
           />
         </symbol>
+        <symbol
+          id="icon5"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 320 512"
+        >
+          <path
+            d="M48 64C21.5 64 0 85.5 0 112V400c0 26.5 21.5 48 48 48H80c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H48zm192 0c-26.5 0-48 21.5-48 48V400c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H240z"
+          />
+        </symbol>
       </defs>
     </svg>
     <script>
       // 側欄點擊播放功能
+      const playList = [
+        "./videos/video1.mp4",
+        "./videos/video2.mp4",
+        "./videos/video3.mp4",
+        "./videos/video4.mp4",
+      ];
+      let playNum = 0;
       const player = document.querySelector("#player");
       const btnsDiv = document.querySelector(".btns");
       const btns = {
@@ -118,33 +143,73 @@
       btnsDiv.addEventListener("click", (e) => {
         switch (e.target) {
           case btns.v1:
-            player.src = "./videos/video1.mp4";
+            player.src = playList[0];
+            playNum = 0;
+            player.play();
+            console.log(playNum);
             break;
           case btns.v2:
-            player.src = "./videos/video2.mp4";
+            player.src = playList[1];
+            playNum = 1;
+            player.play();
+            console.log(playNum);
             break;
           case btns.v3:
-            player.src = "./videos/video3.mp4";
+            player.src = playList[2];
+            playNum = 2;
+            player.play();
+            console.log(playNum);
             break;
           case btns.v4:
-            player.src = "./videos/video4.mp4";
+            player.src = playList[3];
+            playNum = 3;
+            player.play();
+            console.log(playNum);
             break;
         }
       });
-
       //controls 功能
+
       const controlsUl = document.querySelector(".controls");
       const controls = {
-        i1: document.querySelector("#last"),
-        i2: document.querySelector("#play"),
-        i3: document.querySelector("#next"),
-        i4: document.querySelector("#voice"),
+        last: document.querySelector("#last"),
+        play: document.querySelector("#play"),
+        pause: document.querySelector("#pause"),
+        next: document.querySelector("#next"),
+        voice: document.querySelector("#voice"),
       };
       controlsUl.addEventListener("click", (e) => {
         console.log(e.target);
         // switch (e.target) {
-        //   case controls.i1:
-        //     ;
+        //   case controls.last:
+        //     console.log(e.target);
+        //     if (playNum > 0) {
+        //       playNum--;
+        //       player.src = playList[playNum];
+        //       player.play();
+        //     }
+        //     break;
+        //   case controls.play:
+        //     console.log(e.target);
+
+        //     if (player.paused) {
+        //       player.play();
+        //     }
+        //     break;
+        //   case controls.pause:
+        //     console.log(e.target);
+        //     if (!player.paused) {
+        //       player.pause();
+        //     }
+        //     break;
+        //   case controls.next:
+        //     console.log(e.target);
+
+        //     if (playNum < playList.length - 1) {
+        //       playNum++;
+        //       player.src = playList[playNum];
+        //       player.play();
+        //     }
         //     break;
         // }
       });
