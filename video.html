@@ -33,22 +33,22 @@
     <div class="container">
       <main>
         <section class="video">
-          <video width="70%" id="player" muted loop autoplay controls poster="">
+          <video width="70%" id="player" muted loop autoplay poster="">
             <!-- <source src="" /> -->
           </video>
-          <ul>
+          <ul class="controls">
             <li>
-              <svg class="icon"><use href="#icon1" /></svg>
+              <svg class="icon" id="last"><use href="#icon1" /></svg>
             </li>
             <li>
-              <svg class="icon"><use href="#icon2" /></svg>
+              <svg class="icon" id="play"><use href="#" /></svg>
             </li>
             <li>
-              <svg class="icon"><use href="#icon3" /></svg>
+              <svg class="icon" id="next"><use href="#icon3" /></svg>
             </li>
             <li><input type="range" /></li>
             <li>
-              <svg class="icon"><use href="#icon4" /></svg>
+              <svg class="icon" id="voice"><use href="#icon4" /></svg>
             </li>
           </ul>
         </section>
@@ -130,6 +130,23 @@
             player.src = "./videos/video4.mp4";
             break;
         }
+      });
+
+      //controls 功能
+      const controlsUl = document.querySelector(".controls");
+      const controls = {
+        i1: document.querySelector("#last"),
+        i2: document.querySelector("#play"),
+        i3: document.querySelector("#next"),
+        i4: document.querySelector("#voice"),
+      };
+      controlsUl.addEventListener("click", (e) => {
+        console.log(e.target);
+        // switch (e.target) {
+        //   case controls.i1:
+        //     ;
+        //     break;
+        // }
       });
     </script>
   </body>
