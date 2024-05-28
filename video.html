@@ -20,8 +20,9 @@
       }
 
       .icon {
-        border: 1px solid #000;
+        /* border: 1px solid #000; */
         height: 20px;
+        cursor: pointer;
       }
 
       .icon svg {
@@ -43,8 +44,8 @@
             <!-- <source src="" /> -->
           </video>
           <div class="controls">
-            <div class="icon">
-              <svg id="last"><use href="#icon1" /></svg>
+            <div class="icon" id="last">
+              <svg ><use href="#icon1" /></svg>
             </div>
             <div class="icon" id="play">
               <svg><use href="#icon2" /></svg>
@@ -168,8 +169,7 @@
             break;
         }
       });
-      //controls 功能
-
+      // controls 功能
       const controlsUl = document.querySelector(".controls");
       const controls = {
         last: document.querySelector("#last"),
@@ -179,40 +179,42 @@
         voice: document.querySelector("#voice"),
       };
       controlsUl.addEventListener("click", (e) => {
-        console.log(e.target);
-        // switch (e.target) {
-        //   case controls.last:
-        //     console.log(e.target);
-        //     if (playNum > 0) {
-        //       playNum--;
-        //       player.src = playList[playNum];
-        //       player.play();
-        //     }
-        //     break;
-        //   case controls.play:
-        //     console.log(e.target);
+        const action = e.target.closest(".icon");
+        switch (action) {
+          case controls.last:
+            console.log(e.target);
+            if (playNum > 0) {
+              playNum--;
+              player.src = playList[playNum];
+              player.play();
+            }
+            break;
+          case controls.play:
+            console.log(e.target);
 
-        //     if (player.paused) {
-        //       player.play();
-        //     }
-        //     break;
-        //   case controls.pause:
-        //     console.log(e.target);
-        //     if (!player.paused) {
-        //       player.pause();
-        //     }
-        //     break;
-        //   case controls.next:
-        //     console.log(e.target);
+            if (player.paused) {
+              player.play();
+            }
+            break;
+          case controls.pause:
+            console.log(e.target);
+            if (!player.paused) {
+              player.pause();
+            }
+            break;
+          case controls.next:
+            console.log(e.target);
 
-        //     if (playNum < playList.length - 1) {
-        //       playNum++;
-        //       player.src = playList[playNum];
-        //       player.play();
-        //     }
-        //     break;
-        // }
+            if (playNum < playList.length - 1) {
+              playNum++;
+              player.src = playList[playNum];
+              player.play();
+            }
+            break;
+        }
       });
+
+      // controls 功能
     </script>
   </body>
 </html>
