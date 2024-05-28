@@ -33,20 +33,23 @@
       .icon:hover {
         opacity: 0.5;
       }
-      aside{
+      aside {
         width: 40%;
         border: 1px solid #000;
       }
-      aside ul{
-      list-style-type: none;
-      & li{
-        background-color: #dcdcdc;
-        padding: 8px;
-        margin-bottom: 4px;
-        border: 2px solid #7a7a7a;
-        cursor: move;
+      aside ul {
+        list-style-type: none;
+        & li {
+          background-color: #dcdcdc;
+          padding: 8px;
+          margin-bottom: 4px;
+          border: 2px solid #7a7a7a;
+          cursor: move;
+          &.dragging {
+            opacity: 0.5;
+          }
+        }
       }
-    }
     </style>
     <title>Document</title>
   </head>
@@ -80,10 +83,10 @@
           <ul class="btns">
             <li id="video1" draggable="true">影片1</li>
             <li id="video2" draggable="true">影片2</li>
-            <li id="video3" draggable="true"> 影片3</li>
+            <li id="video3" draggable="true">影片3</li>
             <li id="video4" draggable="true">影片4</li>
           </ul>
-          <div >
+          <div>
             <button id="plus">+</button>
           </div>
         </aside>
@@ -224,7 +227,36 @@
         }
       });
 
-      // controls 功能
+      // 影片拖曳與放置功能
+      let draggedItem = null;
+      document.querySelectorAll(".btns li").forEach((item) => {
+        item.addEventListener("dragstart", (e) => {
+          draggedItem = e.target;
+          e.target.classList.add("dragging");
+        });
+        item.addEventListener("dragend", (e) => {
+          e.target.classList.remove("dragging");
+        });
+        item.addEventListener("dragover", (e) => {
+          e.preventDefault();
+        });
+        item.addEventListener("drop", e => {
+          e.preventDefault();
+          const _this = e.target;
+          if(_this !== draggedItem) {
+            let list = draggedItem.parentNode;
+            let draggingIndex = [...list.children].indexOf(draggedItem);
+            let dropIndex = [...list.children].indexOf(_this);
+          console.log(draggingIndex, dropIndex);
+
+          if(draggingIndex > dropIndex){
+            list.insertBefore(draggedItem, _this);
+          }else{
+            list.insertBefore(draggedItem, _this.nextSibling);
+          }
+          }
+        })
+      });
     </script>
   </body>
 </html>
