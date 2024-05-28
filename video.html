@@ -20,8 +20,9 @@
       }
 
       .icon {
-        border: 1px solid #000;
+        /* border: 1px solid #000; */
         height: 20px;
+        cursor: pointer;
       }
 
       .icon svg {
@@ -43,20 +44,20 @@
             <!-- <source src="" /> -->
           </video>
           <div class="controls">
-            <div class="icon">
-              <svg id="last"><use href="#icon1" /></svg>
+            <div class="icon" id="last" data-action="last">
+              <svg ><use href="#icon1" /></svg>
             </div>
-            <div class="icon" id="play">
+            <div class="icon" id="play" data-action="play">
               <svg><use href="#icon2" /></svg>
             </div>
-            <div class="icon" id="pause">
+            <div class="icon" id="pause" data-action="pause">
               <svg><use href="#icon5" /></svg>
             </div>
-            <div class="icon" id="next">
+            <div class="icon" id="next" data-action="next">
               <svg><use href="#icon3" /></svg>
             </div>
             <div><input type="range" /></div>
-            <div class="icon" id="voice">
+            <div class="icon" id="voice" data-action="voice">
               <svg><use href="#icon4" /></svg>
             </div>
           </div>
@@ -170,48 +171,39 @@
       });
       //controls 功能
 
-      const controlsUl = document.querySelector(".controls");
-      const controls = {
-        last: document.querySelector("#last"),
-        play: document.querySelector("#play"),
-        pause: document.querySelector("#pause"),
-        next: document.querySelector("#next"),
-        voice: document.querySelector("#voice"),
-      };
-      controlsUl.addEventListener("click", (e) => {
-        console.log(e.target);
-        // switch (e.target) {
-        //   case controls.last:
-        //     console.log(e.target);
-        //     if (playNum > 0) {
-        //       playNum--;
-        //       player.src = playList[playNum];
-        //       player.play();
-        //     }
-        //     break;
-        //   case controls.play:
-        //     console.log(e.target);
-
-        //     if (player.paused) {
-        //       player.play();
-        //     }
-        //     break;
-        //   case controls.pause:
-        //     console.log(e.target);
-        //     if (!player.paused) {
-        //       player.pause();
-        //     }
-        //     break;
-        //   case controls.next:
-        //     console.log(e.target);
-
-        //     if (playNum < playList.length - 1) {
-        //       playNum++;
-        //       player.src = playList[playNum];
-        //       player.play();
-        //     }
-        //     break;
-        // }
+      const controlsDiv = document.querySelector(".controls");
+      controlsDiv.addEventListener("click", (e) => {
+        const action = e.target.closest(".icon").dataset.action;
+        switch (action) {
+          case "last":
+            console.log(e.target);
+            if (playNum > 0) {
+              playNum--;
+              player.src = playList[playNum];
+              player.play();
+            }
+            break;
+          case "play":
+            console.log(e.target);
+            if (player.paused) {
+              player.play();
+            }
+            break;
+          case "pause":
+            console.log(e.target);
+            if (!player.paused) {
+              player.pause();
+            }
+            break;
+          case "next":
+            console.log(e.target);
+            if (playNum < playList.length - 1) {
+              playNum++;
+              player.src = playList[playNum];
+              player.play();
+            }
+            break;
+        }
       });
     </script>
   </body>
