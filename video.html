@@ -45,7 +45,7 @@
           </video>
           <div class="controls">
             <div class="icon" id="last">
-              <svg ><use href="#icon1" /></svg>
+              <svg><use href="#icon1" /></svg>
             </div>
             <div class="icon" id="play">
               <svg><use href="#icon2" /></svg>
@@ -182,7 +182,6 @@
         const action = e.target.closest(".icon");
         switch (action) {
           case controls.last:
-            console.log(e.target);
             if (playNum > 0) {
               playNum--;
               player.src = playList[playNum];
@@ -190,21 +189,16 @@
             }
             break;
           case controls.play:
-            console.log(e.target);
-
             if (player.paused) {
               player.play();
             }
             break;
           case controls.pause:
-            console.log(e.target);
             if (!player.paused) {
               player.pause();
             }
             break;
           case controls.next:
-            console.log(e.target);
-
             if (playNum < playList.length - 1) {
               playNum++;
               player.src = playList[playNum];
