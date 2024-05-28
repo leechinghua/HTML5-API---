@@ -12,11 +12,11 @@
         display: flex;
         border: 1px solid #000;
       }
-
+      /* controls */
       .controls {
         display: inline-flex;
         align-items: center;
-        width: 70%;
+        /* width: 70%; */
       }
 
       .icon {
@@ -33,6 +33,20 @@
       .icon:hover {
         opacity: 0.5;
       }
+      aside{
+        width: 40%;
+        border: 1px solid #000;
+      }
+      aside ul{
+      list-style-type: none;
+      & li{
+        background-color: #dcdcdc;
+        padding: 8px;
+        margin-bottom: 4px;
+        border: 2px solid #7a7a7a;
+        cursor: move;
+      }
+    }
     </style>
     <title>Document</title>
   </head>
@@ -63,11 +77,13 @@
           </div>
         </section>
         <aside>
-          <div class="btns">
-            <button id="video1">影片1</button>
-            <button id="video2">影片2</button>
-            <button id="video3">影片3</button>
-            <button id="video4">影片4</button>
+          <ul class="btns">
+            <li id="video1" draggable="true">影片1</li>
+            <li id="video2" draggable="true">影片2</li>
+            <li id="video3" draggable="true"> 影片3</li>
+            <li id="video4" draggable="true">影片4</li>
+          </ul>
+          <div >
             <button id="plus">+</button>
           </div>
         </aside>
