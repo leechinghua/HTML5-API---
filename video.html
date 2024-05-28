@@ -44,20 +44,20 @@
             <!-- <source src="" /> -->
           </video>
           <div class="controls">
-            <div class="icon" id="last" data-action="last">
+            <div class="icon" id="last">
               <svg ><use href="#icon1" /></svg>
             </div>
-            <div class="icon" id="play" data-action="play">
+            <div class="icon" id="play">
               <svg><use href="#icon2" /></svg>
             </div>
-            <div class="icon" id="pause" data-action="pause">
+            <div class="icon" id="pause">
               <svg><use href="#icon5" /></svg>
             </div>
-            <div class="icon" id="next" data-action="next">
+            <div class="icon" id="next">
               <svg><use href="#icon3" /></svg>
             </div>
             <div><input type="range" /></div>
-            <div class="icon" id="voice" data-action="voice">
+            <div class="icon" id="voice">
               <svg><use href="#icon4" /></svg>
             </div>
           </div>
@@ -169,13 +169,19 @@
             break;
         }
       });
-      //controls 功能
-
-      const controlsDiv = document.querySelector(".controls");
-      controlsDiv.addEventListener("click", (e) => {
-        const action = e.target.closest(".icon").dataset.action;
+      // controls 功能
+      const controlsUl = document.querySelector(".controls");
+      const controls = {
+        last: document.querySelector("#last"),
+        play: document.querySelector("#play"),
+        pause: document.querySelector("#pause"),
+        next: document.querySelector("#next"),
+        voice: document.querySelector("#voice"),
+      };
+      controlsUl.addEventListener("click", (e) => {
+        const action = e.target.closest(".icon");
         switch (action) {
-          case "last":
+          case controls.last:
             console.log(e.target);
             if (playNum > 0) {
               playNum--;
@@ -183,20 +189,22 @@
               player.play();
             }
             break;
-          case "play":
+          case controls.play:
             console.log(e.target);
+
             if (player.paused) {
               player.play();
             }
             break;
-          case "pause":
+          case controls.pause:
             console.log(e.target);
             if (!player.paused) {
               player.pause();
             }
             break;
-          case "next":
+          case controls.next:
             console.log(e.target);
+
             if (playNum < playList.length - 1) {
               playNum++;
               player.src = playList[playNum];
@@ -205,6 +213,8 @@
             break;
         }
       });
+
+      // controls 功能
     </script>
   </body>
 </html>
