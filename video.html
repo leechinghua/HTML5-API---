@@ -16,7 +16,7 @@
       }
       main {
         display: flex;
-        border: 1px solid #000;
+        /* border: 1px solid #000;*/
       }
       /* controls */
       .controls {
@@ -32,7 +32,7 @@
         }
       }
       svg {
-        width: 100%;
+        width: 20px;
         height: 100%;
       }
 
@@ -61,40 +61,38 @@
   </head>
   <body>
     <div class="container">
-      <main>
-        <section class="video">
+      <main class="row">
+        <section class="video col-8">
           <video id="player" width="100%" muted loop autoplay poster="">
             <!-- <source src="" /> -->
           </video>
-          <div class="controls">
-            <div class="icon" id="last">
+          <div class="controls row">
+            <div class="icon col-1" id="last">
               <svg><use href="#icon1" /></svg>
             </div>
-            <div class="icon" id="play">
+            <div class="icon col-1" id="play">
               <svg><use href="#icon2" /></svg>
             </div>
-            <div class="icon" id="pause">
+            <div class="icon col-1" id="pause">
               <svg><use href="#icon5" /></svg>
             </div>
-            <div class="icon" id="next">
+            <div class="icon col-1" id="next">
               <svg><use href="#icon3" /></svg>
             </div>
-            <div><input type="range" /></div>
-            <div class="icon" id="voice">
+            <div class="icon col-7"><input type="range" class="w-100" /></div>
+            <div class="icon col-1" id="voice">
               <svg><use href="#icon4" /></svg>
             </div>
           </div>
         </section>
-        <aside>
+        <aside class="col-4">
           <ul class="btns">
             <li id="video1" draggable="true">影片1</li>
             <li id="video2" draggable="true">影片2</li>
             <li id="video3" draggable="true">影片3</li>
             <li id="video4" draggable="true">影片4</li>
-          </ul>
-          <div>
             <button id="plus">+</button>
-          </div>
+          </ul>
         </aside>
       </main>
     </div>
