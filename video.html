@@ -56,6 +56,9 @@
         width: 30px;
         height: 30px;
       }
+      input[type="file"] {
+        display: none;
+      }
     </style>
     <title>Video</title>
   </head>
@@ -92,6 +95,7 @@
             <li id="video3" draggable="true">影片3</li>
             <li id="video4" draggable="true">影片4</li>
             <button id="plus">+</button>
+            <input type="file" name="myFiles" accept="video/*" />
           </ul>
         </aside>
       </main>
