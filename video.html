@@ -95,7 +95,7 @@
             <li id="video3" draggable="true">影片3</li>
             <li id="video4" draggable="true">影片4</li>
             <button id="plus">+</button>
-            <input type="file" name="myFiles" accept="video/*" />
+            <input type="file" name="myFiles" id="myFiles" accept="video/*" />
           </ul>
         </aside>
       </main>
@@ -270,7 +270,7 @@
       // 影片上傳功能
       const plus = document.querySelector("#plus");
       plus.addEventListener("click", (e) => {
-        console.log(e.target);
+        myFiles.click();
       });
     </script>
   </body>
