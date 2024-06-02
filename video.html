@@ -89,14 +89,14 @@
           </div>
         </section>
         <aside class="col-4">
-          <ul class="btns">
+          <ul class="btns" id="btns">
             <li id="video1" draggable="true">影片1</li>
             <li id="video2" draggable="true">影片2</li>
             <li id="video3" draggable="true">影片3</li>
             <li id="video4" draggable="true">影片4</li>
-            <button id="plus">+</button>
-            <input type="file" name="myFiles" id="myFiles" accept="video/*" />
           </ul>
+          <button id="plus">+</button>
+          <input type="file" name="myFiles" id="myFiles" accept="video/*" />
         </aside>
       </main>
     </div>
@@ -237,41 +237,72 @@
       });
 
       // 影片拖曳與放置功能
-      let draggedItem = null;
-      document.querySelectorAll(".btns li").forEach((item) => {
-        item.addEventListener("dragstart", (e) => {
-          draggedItem = e.target;
-          e.target.classList.add("dragging");
-        });
-        item.addEventListener("dragend", (e) => {
-          e.target.classList.remove("dragging");
-        });
-        item.addEventListener("dragover", (e) => {
-          e.preventDefault();
-        });
-        item.addEventListener("drop", (e) => {
-          e.preventDefault();
-          const _this = e.target;
-          if (_this !== draggedItem) {
-            let list = draggedItem.parentNode;
-            let draggingIndex = [...list.children].indexOf(draggedItem);
-            let dropIndex = [...list.children].indexOf(_this);
-            console.log(draggingIndex, dropIndex);
+      function dragFunction() {
+        let draggedItem = null;
+        document.querySelectorAll(".btns li").forEach((item) => {
+          item.addEventListener("dragstart", (e) => {
+            draggedItem = e.target;
+            e.target.classList.add("dragging");
+          });
+          item.addEventListener("dragend", (e) => {
+            e.target.classList.remove("dragging");
+          });
+          item.addEventListener("dragover", (e) => {
+            e.preventDefault();
+          });
+          item.addEventListener("drop", (e) => {
+            e.preventDefault();
+            const _this = e.target;
+            if (_this !== draggedItem) {
+              let list = draggedItem.parentNode;
+              let draggingIndex = [...list.children].indexOf(draggedItem);
+              let dropIndex = [...list.children].indexOf(_this);
+              console.log(draggingIndex, dropIndex);
 
-            if (draggingIndex > dropIndex) {
-              list.insertBefore(draggedItem, _this);
-            } else {
-              list.insertBefore(draggedItem, _this.nextSibling);
+              if (draggingIndex > dropIndex) {
+                list.insertBefore(draggedItem, _this);
+              } else {
+                list.insertBefore(draggedItem, _this.nextSibling);
+              }
             }
-          }
+          });
         });
-      });
-
+      }
+      dragFunction();
       // 影片上傳功能
-      const plus = document.querySelector("#plus");
-      plus.addEventListener("click", (e) => {
-        myFiles.click();
-      });
+      function plusFunction() {
+        plus.addEventListener("click", () => {
+          myFiles.click();
+        });
+        myFiles.addEventListener("change", (event) => {
+          let fileList = event.target.files;
+          [...fileList].forEach((file) => {
+            console.log(file);
+            console.log(file.name);
+            let newLi = document.createElement("li");
+            newLi.textContent = file.name;
+            newLi.setAttribute("draggable", "true");
+            btnsDiv.appendChild(newLi);
+            let reader = new FileReader();
+            reader.addEventListener("load", (e) => {
+              player.src = e.target.result;
+              console.log(player.src);
+              player.play();
+            });
+            reader.readAsDataURL(file);
+            dragFunction();
+          });
+        });
+      }
+
+      plusFunction();
+
+      // 影片上傳後可播放功能
+      // function playAddedVideo() {
+      //   plus.addEventListener("change", e =>{
+
+      //   });
+      // }
     </script>
   </body>
 </html>
