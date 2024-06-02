@@ -60,6 +60,7 @@
       input[type="file"] {
         display: none;
       }
+
       .volume-control {
         display: none; /* 初始隱藏 */
         position: absolute;
@@ -93,8 +94,9 @@
             <div class="icon col-1" id="next">
               <svg><use href="#icon3" /></svg>
             </div>
-            <div class="icon col-7">
-              <input type="range" class="w-100" />
+            <div class="icon col-7 d-flex">
+              <input type="range" class="form-range px-2" />
+              <output class=""></output>
             </div>
             <div class="icon col-1" id="voice">
               <svg><use href="#icon4" /></svg>
@@ -331,12 +333,13 @@
 
       plusFunction();
 
-      // 影片上傳後可播放功能
-      // function playAddedVideo() {
-      //   plus.addEventListener("change", e =>{
+      // 影片進度條功能
 
-      //   });
-      // }
+      document
+        .querySelector("input[type=range]")
+        .addEventListener("input", (e) => {
+          document.querySelector("output").value = e.target.value;
+        });
     </script>
   </body>
 </html>
