@@ -88,9 +88,7 @@
     <div class="container">
       <main class="row">
         <section class="video col-8">
-          <video id="player" width="100%" loop poster="">
-            <!-- <source src="" /> -->
-          </video>
+          <video id="player" width="100%"></video>
           <div class="controls row">
             <div class="icon col-1" id="last">
               <svg><use href="#icon1" /></svg>
@@ -239,8 +237,17 @@
             }
             break;
           case controls.play:
-            if (player.paused) {
+            // if (player.paused) {
+            //   player.play();
+            //   playChain();
+            // }
+            if (!player.src) {
+              player.src = playList[0];
               player.play();
+              playChain();
+            } else if (player.paused) {
+              player.play();
+              playChain();
             }
             break;
           case controls.pause:
@@ -380,6 +387,18 @@
         const minutes = Math.floor(seconds / 60);
         const secondsLeft = Math.floor(seconds % 60);
         return `${minutes}:${secondsLeft < 10 ? "0" : ""}${secondsLeft}`;
+      }
+
+      // 影片連續播放
+      function playChain() {
+        player.addEventListener("ended", () => {
+          playNum++;
+          if (playNum >= playList.length) {
+            playNum = 0;
+          }
+          player.src = playList[playNum];
+          player.play();
+        });
       }
     </script>
   </body>
