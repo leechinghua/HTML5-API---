@@ -51,6 +51,18 @@
           &.dragging {
             opacity: 0.5;
           }
+          .minus {
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            height: 100%;
+            border: 1px solid #dcdcdc;
+            border-radius: 5px;
+            margin-right: 5px;
+            :hover {
+              background-color: lightsalmon;
+            }
+          }
         }
       }
       #plus {
@@ -108,10 +120,19 @@
         </section>
         <aside class="col-4">
           <ul class="btns" id="btns">
-            <li id="video1" draggable="true">影片1</li>
-            <li id="video2" draggable="true">影片2</li>
-            <li id="video3" draggable="true">影片3</li>
-            <li id="video4" draggable="true">影片4</li>
+            <li id="video1" draggable="true">
+              <button class="minus">-</button>影片1
+            </li>
+
+            <li id="video2" draggable="true">
+              <button class="minus">-</button>影片2
+            </li>
+            <li id="video3" draggable="true">
+              <button class="minus">-</button>影片3
+            </li>
+            <li id="video4" draggable="true">
+              <button class="minus">-</button>影片4
+            </li>
           </ul>
           <ul>
             <button id="plus">+</button>
@@ -189,31 +210,14 @@
       );
 
       btnsDiv.addEventListener("click", (e) => {
-        switch (e.target) {
-          case btns.v1:
-            player.src = playList[0];
-            playNum = 0;
+        const clickedButton = e.target.closest("li");
+        if (clickedButton) {
+          const index = Array.from(btnsDiv.children).indexOf(clickedButton);
+          if (index !== -1) {
+            playNum = index;
+            player.src = playList[playNum];
             player.play();
-            console.log(playNum);
-            break;
-          case btns.v2:
-            player.src = playList[1];
-            playNum = 1;
-            player.play();
-            console.log(playNum);
-            break;
-          case btns.v3:
-            player.src = playList[2];
-            playNum = 2;
-            player.play();
-            console.log(playNum);
-            break;
-          case btns.v4:
-            player.src = playList[3];
-            playNum = 3;
-            player.play();
-            console.log(playNum);
-            break;
+          }
         }
       });
       // controls 功能
@@ -313,14 +317,14 @@
         myFiles.addEventListener("change", (event) => {
           let fileList = event.target.files;
           [...fileList].forEach((file) => {
-            console.log(file);
-            console.log(file.name);
             let newLi = document.createElement("li");
-            newLi.textContent = file.name;
+            newLi.innerHTML = `<button class="minus">-</button>${file.name}`;
             newLi.setAttribute("draggable", "true");
             btnsDiv.appendChild(newLi);
             let reader = new FileReader();
             reader.addEventListener("load", (e) => {
+              playList.push(e.target.result);
+              playNum = playList.length - 1;
               player.src = e.target.result;
               console.log(player.src);
               player.play();
