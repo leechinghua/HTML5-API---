@@ -336,7 +336,20 @@
       }
 
       plusFunction();
-
+      // 影片移除功能
+      function minusFunction(event) {
+        const li = event.target.closest("li");
+        const btns = document.querySelector("#btns");
+        const index = Array.from(btns.children).indexOf(li);
+        if (index > -1) {
+          playList.splice(index, 1);
+          li.remove();
+          console.log(`Removed video at index ${index}`);
+        }
+      }
+      document.querySelectorAll(".minus").forEach((button) => {
+        button.addEventListener("click", minusFunction);
+      });
       // 影片進度條功能
       const range = document.querySelector("input[type=range]");
       const output = document.querySelector("output");
