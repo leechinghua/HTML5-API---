@@ -59,12 +59,10 @@
             border: 1px solid #dcdcdc;
             border-radius: 5px;
             margin-right: 5px;
-            :hover {
-              background-color: lightsalmon;
-            }
           }
         }
       }
+
       #plus {
         width: 30px;
         height: 30px;
@@ -331,6 +329,7 @@
             });
             reader.readAsDataURL(file);
             dragFunction();
+            clickMinusFunction();
           });
         });
       }
@@ -347,9 +346,12 @@
           console.log(`Removed video at index ${index}`);
         }
       }
-      document.querySelectorAll(".minus").forEach((button) => {
-        button.addEventListener("click", minusFunction);
-      });
+      function clickMinusFunction() {
+        document.querySelectorAll(".minus").forEach((button) => {
+          button.addEventListener("click", minusFunction);
+        });
+      }
+      clickMinusFunction();
       // 影片進度條功能
       const range = document.querySelector("input[type=range]");
       const output = document.querySelector("output");
