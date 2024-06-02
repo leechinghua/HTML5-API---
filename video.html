@@ -334,12 +334,34 @@
       plusFunction();
 
       // 影片進度條功能
+      const range = document.querySelector("input[type=range]");
+      const output = document.querySelector("output");
+
+      player.addEventListener("loadedmetadata", () => {
+        range.max = player.duration;
+      });
+      player.addEventListener("timeupdate", () => {
+        range.value = player.currentTime;
+        output.value = formatTime(player.currentTime);
+      });
 
       document
         .querySelector("input[type=range]")
         .addEventListener("input", (e) => {
           document.querySelector("output").value = e.target.value;
         });
+
+      range.addEventListener("input", (e) => {
+        player.currentTime = e.target.value;
+        output.value = formatTime(e.target.value);
+      });
+
+      // 格式化時間為 mm:ss
+      function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const secondsLeft = Math.floor(seconds % 60);
+        return `${minutes}:${secondsLeft < 10 ? "0" : ""}${secondsLeft}`;
+      }
     </script>
   </body>
 </html>
